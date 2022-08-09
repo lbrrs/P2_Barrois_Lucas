@@ -11,7 +11,9 @@
 ### 2. Installation des packages 
 
     pip<version> install -r requirements.txt
+    
+### 3. Création d'un dossier "csv" à la racine du projet
 
-## 3. Execution du script
+## 4. Execution du script
 
     python<version> p2.py
