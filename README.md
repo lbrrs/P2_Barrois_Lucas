@@ -1,4 +1,4 @@
-# Projet 2 OpenClassrooms Web-scrapping
+# OpenClassrooms - Projet 2 Web-scrapping
 
 ## Mise en place du projet :
 
@@ -14,4 +14,4 @@
 
 ## 3. Execution du script
 
-    python<version> main.py
+    python<version> p2.py
