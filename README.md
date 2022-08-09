@@ -14,6 +14,7 @@
     
 ## 3. Création d'un dossier "csv" à la racine du projet
 
+
 ## 4. Execution du script
 
     python<version> p2.py
