@@ -24,13 +24,12 @@ def extract_category_data(url):
             break
         '''
 
-    print(extract_category)
+    #print(extract_category)
 
     return extract_category
 
 
 def extract_book_link(data):
-    print("=========================")
     p = dict()
     for key, links in data.items():
         p[key] = list()
@@ -39,8 +38,17 @@ def extract_book_link(data):
         for link in soup.findAll('h3'):
             link = link.next
             l = link.attrs['href']
-            '''print('http://books.toscrape.com/catalogue/' + l.replace('../', ''))'''
+            '''#print('http://books.toscrape.com/catalogue/' + l.replace('../', ''))'''
             p[key].append('http://books.toscrape.com/catalogue/' + l.replace('../', ''))
+            while soup.find('li', 'next') is not None:
+                new_link = links[0:links.rfind("/")] + "/" + soup.find('li', 'next').contents[0].attrs['href']
+                reponse = requests.get(new_link)
+                soup = BeautifulSoup(reponse.content, 'html.parser')
+                for link in soup.findAll('h3'):
+                    link = link.next
+                    l = link.attrs['href']
+                    '''#print('http://books.toscrape.com/catalogue/' + l.replace('../', ''))'''
+                    p[key].append('http://books.toscrape.com/catalogue/' + l.replace('../', ''))
 
     return p
 
@@ -84,14 +92,14 @@ def extract_book_data(book):
             price_excluding_tax = td_textes[3]
             number_available = td_textes[5]
             '''
-            print(title)
-            print(img["src"].replace('../../', 'http://books.toscrape.com/'))
-            print(price)
-            print(stock)
-            print(th_textes)
-            print(td_textes)
-            print(stars)
-            print(p_texte[3])
+            #print(title)
+            #print(img["src"].replace('../../', 'http://books.toscrape.com/'))
+            #print(price)
+            #print(stock)
+            #print(th_textes)
+            #print(td_textes)
+            #print(stars)
+            #print(p_texte[3])
             '''
             if price_excluding_tax is not None:
                 price_excluding_tax = str(price_excluding_tax)
@@ -143,5 +151,6 @@ book = 'http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html
 
 data = extract_category_data(url)
 url_book = extract_book_link(data)
+
 book_data = extract_book_data(url_book)
 main(book_data)
