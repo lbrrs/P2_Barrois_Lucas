@@ -132,17 +132,17 @@ def main(book_data):
     filename = 1
     for b in book_data:
         key = b
-        csvfile = open(f"./csv/{key}.csv", 'w', encoding='UTF8', newline='')
-        header = ['category', 'product_page_url', 'title', 'image_url', 'price_including_tax',
-                  'price_excluding_tax',
-                  'number_available', 'product_description', 'review_rating', 'universal_product_code']
-        csv_writer = csv.writer(csvfile)
-        csv_writer.writerow(header)
+        with open(f"./csv/{key}.csv", 'w', encoding='UTF8', newline='') as csvfile:
+            header = ['category', 'product_page_url', 'title', 'image_url', 'price_including_tax',
+                      'price_excluding_tax',
+                      'number_available', 'product_description', 'review_rating', 'universal_product_code']
+            csv_writer = csv.writer(csvfile, delimiter=';')
+            csv_writer.writerow(header)
 
-        for links in book_data[b]:
-            csv_writer.writerow(links)
-            download_image(links[3], filename)
-            filename += 1
+            for links in book_data[b]:
+                csv_writer.writerow(links)
+                download_image(links[3], filename)
+                filename += 1
 
 
 url = "http://books.toscrape.com/index.html"
